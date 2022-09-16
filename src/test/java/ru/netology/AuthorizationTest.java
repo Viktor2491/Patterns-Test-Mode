@@ -29,8 +29,8 @@ public class AuthorizationTest {
     @DisplayName("Невалидные логин и пароль")
     void shouldNotifyAboutInvalidLoginOrPassword() {
         val user = DataGenerator.Authorization.registerUser("en","active");
-        $("[name='login']").setValue("wronguser");
-        $("[name='password']").setValue("wrongpassowor");
+        $("[name='login']").setValue(DataGenerator.Authorization.invalidLogin());
+        $("[name='password']").setValue(DataGenerator.Authorization.invalidPassword());
         $("[data-test-id='action-login']").click();
         $("div[data-test-id='error-notification']").shouldHave(text("Неверно указан логин или пароль"));
     }
@@ -40,7 +40,7 @@ public class AuthorizationTest {
     void shouldNotifyAboutInvalidPasswordForBlockedUser() {
         val user = DataGenerator.Authorization.registerUser("en","blocked");
         $("[name='login']").setValue(user.getLogin());
-        $("[name='password']").setValue("wrongpassword");
+        $("[name='password']").setValue(DataGenerator.Authorization.invalidPassword());
         $("[data-test-id='action-login']").click();
         $("div[data-test-id='error-notification']").shouldHave(text("Неверно указан логин или пароль"));
     }
@@ -50,7 +50,7 @@ public class AuthorizationTest {
     void shouldNotifyAboutInvalidPasswordForActiveUser() {
         val user = DataGenerator.Authorization.registerUser("en","active");
         $("[name='login']").setValue(user.getLogin());
-        $("[name='password']").setValue("wrongpassword");
+        $("[name='password']").setValue(DataGenerator.Authorization.invalidPassword());
         $("[data-test-id='action-login']").click();
         $("div[data-test-id='error-notification']").shouldHave(text("Неверно указан логин или пароль"));
     }
@@ -59,7 +59,7 @@ public class AuthorizationTest {
     @DisplayName("Неалидный логин и валидный пароль, статус active")
     void shouldNotifyAboutInvalidLoginForActiveUser() {
         val user = DataGenerator.Authorization.registerUser("en","active");
-        $("[name='login']").setValue("wronglogin");
+        $("[name='login']").setValue(DataGenerator.Authorization.invalidLogin());
         $("[name='password']").setValue(user.getPassword());
         $("[data-test-id='action-login']").click();
         $("div[data-test-id='error-notification']").shouldHave(text("Неверно указан логин или пароль"));
@@ -69,7 +69,7 @@ public class AuthorizationTest {
     @DisplayName("Неалидный логин и валидный пароль, статус blocked")
     void shouldNotifyAboutInvalidLoginForBlockedUser() {
         val user = DataGenerator.Authorization.registerUser("en","blocked");
-        $("[name='login']").setValue("wronglogin");
+        $("[name='login']").setValue(DataGenerator.Authorization.invalidLogin());
         $("[name='password']").setValue(user.getPassword());
         $("[data-test-id='action-login']").click();
         $("div[data-test-id='error-notification']").shouldHave(text("Неверно указан логин или пароль"));

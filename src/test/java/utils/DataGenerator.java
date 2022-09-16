@@ -1,4 +1,5 @@
 package utils;
+
 import com.github.javafaker.Faker;
 
 import io.restassured.builder.RequestSpecBuilder;
@@ -11,7 +12,8 @@ import java.util.Locale;
 import static io.restassured.RestAssured.given;
 
 public class DataGenerator {
-    private DataGenerator(){}
+    private DataGenerator() {
+    }
 
     public static class Authorization {
         private static RequestSpecification requestSpec = new RequestSpecBuilder()
@@ -21,7 +23,9 @@ public class DataGenerator {
                 .setContentType(ContentType.JSON)
                 .log(LogDetail.ALL)
                 .build();
-        private Authorization() {}
+
+        private Authorization() {
+        }
 
 
         private static ClientData generateUser(String locale, String status) {
@@ -31,8 +35,6 @@ public class DataGenerator {
                     faker.internet().password(),
                     status);
         }
-
-
 
 
         public static ClientData registerUser(String locale, String status) {
@@ -49,5 +51,14 @@ public class DataGenerator {
 
         }
 
+        public static String invalidLogin() {
+            Faker faker = new Faker(new Locale("en"));
+            return faker.name().username();
+        }
+
+        public static String invalidPassword() {
+            Faker faker = new Faker(new Locale("en"));
+            return faker.internet().password();
+        }
     }
 }
